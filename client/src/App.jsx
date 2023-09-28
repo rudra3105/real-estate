@@ -4,47 +4,59 @@ import './App.scss'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-import axios from 'axios';
-import { SERVER_URL } from './Config';
+import { BrowserRouter,Route,Routes } from 'react-router-dom';
 
-// components
-import Nav from './Layouts/Header/Nav'
-import Footer from './Layouts/Footer/Footer'
+import Nav from "./Layouts/Header/Nav";
+import Footer from "./Layouts/Footer/Footer"
+import Home from './Pages/Home';
+import CupPreloader from './components/Preloaders/CupPreloader';
+import Sidebar from './components/SideBar/Sidebar';
+import About from './Pages/About/About';
+import Newsletter from './Layouts/homeMain/Newsletter';
+import Services from './Pages/Services/Services';
+import Testimonial from './Layouts/Testimonial/Main';
+import Contact from './Layouts/Contact/Main';
 
-import AppRoutes from './Routes'
+
 
 function App() {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  
+ const [IsOpen,setIsOpen] = useState(false);
 
-  const setAuth = (boolean) => {
-    setIsAuthenticated(boolean);
-  };
-
-  const isAuth = async () => {
-    try {
-      const response = await axios.get(`${SERVER_URL}/api/auth/is-verify`, {
-        headers: { token: localStorage.token }
-      });
-
-      const parseRes = response.data;
-      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+  
+ const toggleOpen = () =>{
+  console.log(IsOpen);
+   setIsOpen(!IsOpen);
+ }
 
   useEffect(() => {
-    isAuth();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); 
   }, []);
 
-  return (
-    <div>
-      <Nav setAuth={setAuth} isAuthenticated={isAuthenticated} />
+  return (     
+    <div >
+    {isLoading ? (
+      <div style={{backgroundColor:"slategray"}}><CupPreloader /></div>
+    ) : (<div style={{backgroundColor:"#252323"}}>
+
       <ToastContainer />
-      <AppRoutes setAuth={setAuth} isAuthenticated={isAuthenticated} />
-      <Footer setAuth={setAuth} isAuthenticated={isAuthenticated} />
+      <Nav toggleOpen={toggleOpen} setIsOpen={setIsOpen}/>
+      <Routes>
+        <Route path='/' exact element={<Home/>}/>
+        <Route path='/contact' exact element={<Contact/>}/>
+        <Route path='/services' exact element={<Services/>}/>
+        <Route path='/testimonial' exact element={<Testimonial/>}/>
+        <Route path='/about' exact element={<About/>}/>
+      </Routes>
+      <Newsletter/>
+      <Footer/>
+      
+    </div>)}
+    {IsOpen && (<Sidebar IsOpen={IsOpen} setIsOpen={setIsOpen}/>)}
     </div>
   )
 }

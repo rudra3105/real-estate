@@ -1,5 +1,5 @@
 import React from "react";
-import HeroCard from "../../components/Card/heroCard";
+import HeroCard from "./HeroCard";
 import { useEffect, useState } from "react";
 import Animate from "react-smooth";
 import image from "../../assets/Images/main-pic.jpg"
@@ -33,7 +33,7 @@ const Hero = () => {
                         className="absolute transition-all duration-1000 ease-in-out w-full h-full object-center lg:rounded-3xl"
                         alt="background"
                         style={{
-                            backgroundImage: `url(${image})`,
+                            backgroundImage: `url(${"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YnVpbGRpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"})`,
                             backgroundSize: "cover",
                             backgroundRepeat: "no-repeat",
                             backgroundPosition: "center",
@@ -45,13 +45,14 @@ const Hero = () => {
                         <div className="w-full mx-auto z-[0] py-[400px] md:py-[200px] mt-[-350px] md:mt-[-80px] lg:mt-[0px]">
                             <Animate to="1" from="0" attributeName="opacity">
                                 <div className="px-20">
-                                    <h1 className="md:text-5xl sm:text-5xl text-4xl font-semibold md:py-6 md:max-w-xl text-gray-700">
+                                    <h1 className="md:text-5xl sm:text-5xl text-4xl font-semibold md:py-6 md:max-w-xl text-white">
                                         Find your dream home
                                     </h1>
-                                    <p className="text-xl mb-10 text-cyan-800">
+                                    <p className="text-xl mb-10 text-cyan-800" style={{color:"#cfd8dc"}}>
                                         We help you find a house that suits your needs
                                     </p>
-                                    <button className="rounded-3xl transition-all inline-flex justify-center w-fit shadow-sm px-4 py-3 text-md font-medium text-gray-50 hover:bg-cyan-700 hover:text-white  bg-cyan-600 border border-cyan-600 mb-10">
+                                    <button className="rounded-3xl transition-all inline-flex justify-center w-fit shadow-sm px-4 py-3 text-md font-medium text-gray-50 hover:bg-cyan-700 hover:text-white   border-cyan-600 mb-10"
+                                    style={{backgroundColor:"#61939a"}}>
                                         <Link to="/about">Learn More</Link>
                                     </button>
                                 </div>

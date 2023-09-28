@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineBed } from "react-icons/md";
 import { BiBath, BiArea } from "react-icons/bi";
-// import { AiOutlineHeart } from "react-icons/ai";
 
 const propertyCard = ({ property }) => {
 
